@@ -7,8 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity(name = "loan")
 public class Loan {
@@ -19,32 +20,31 @@ public class Loan {
 	@Column(nullable = false)
 	private BigDecimal total;
 
-	@ManyToOne//(cascade = CascadeType.DETACH)
-	@JoinColumn(name="userId")
-	private User userId;
-
-	@JsonProperty("userId")
-	public Long userId() {
-		return userId.getId();
-	}
+	@ManyToOne
+	@JsonIgnore
+	@JoinColumn(name = "userId")
+	private User user;
 
 	public Loan() {
-	}
-
-	public User getUserId() {
-		return userId;
-	}
-
-	public void setUserId(User userId) {
-		this.userId = userId;
 	}
 
 	public Long getId() {
 		return id;
 	}
+	
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+
+	@JsonProperty("userId")
+	public Long userId() {
+		return user.getId();
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public BigDecimal getTotal() {

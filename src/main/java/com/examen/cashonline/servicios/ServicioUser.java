@@ -21,6 +21,7 @@ public class ServicioUser {
 	}
 
 	public void guardar(User usuario) {
+
 		try {
 			repositorioUser.save(usuario);
 		} catch (Exception exc) {
@@ -28,4 +29,11 @@ public class ServicioUser {
 		}
 	}
 
+	public void eliminar(Long idUsuario) {
+		try {
+			repositorioUser.deleteById(idUsuario);
+		} catch (Exception exc) {
+			logger.warn("Falló al eliminar el usuario", exc);
+		}
+	}
 }

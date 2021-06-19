@@ -1,6 +1,7 @@
 package com.examen.cashonline.controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +33,7 @@ public class ControllerUser {
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public User obtenerUsuarioPorId(@PathVariable("id") final Long id) throws NotFoundException {
-		logger.info("GET obtener el usuario con id " + id);
+		logger.info("GET /users/ " + id);
 		return servicioUser.obtenerUsuarioPorId(id);
 	}
 
@@ -41,7 +42,16 @@ public class ControllerUser {
 	@ResponseBody
 	@Transactional
 	public void crearUsuario(@RequestBody User usuario) {
+		logger.info("POST /users");
 		servicioUser.guardar(usuario);
+	}
+
+	@DeleteMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(code = HttpStatus.OK)
+	@ResponseBody
+	public void eliminarUsuarioPorId(@PathVariable("id") final Long id) {
+		logger.info("DELETE /users/" + id);
+		servicioUser.eliminar(id);
 	}
 
 }
