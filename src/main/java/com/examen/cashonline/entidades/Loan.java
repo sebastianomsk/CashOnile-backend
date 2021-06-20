@@ -22,7 +22,7 @@ public class Loan {
 
 	@ManyToOne
 	@JsonIgnore
-	@JoinColumn(name = "userId")
+	@JoinColumn(name = "userId", nullable = false)
 	private User user;
 
 	
