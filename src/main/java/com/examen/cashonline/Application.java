@@ -14,9 +14,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @ComponentScan
 @EnableScheduling
 @SpringBootApplication
-//(scanBasePackages = {
-//        "com.examen.cashonline"
-//})
 public class Application {
 
 	public static void main(String[] args) {

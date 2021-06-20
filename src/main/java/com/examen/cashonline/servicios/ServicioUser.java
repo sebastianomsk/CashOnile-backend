@@ -5,6 +5,9 @@ import org.springframework.stereotype.Service;
 import com.examen.cashonline.entidades.User;
 import com.examen.cashonline.repositorios.RepositorioUser;
 import javassist.NotFoundException;
+
+import javax.transaction.Transactional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,6 +23,7 @@ public class ServicioUser {
 				.orElseThrow(() -> new NotFoundException("No existe el usuario con el id " + idUsuario));
 	}
 
+	@Transactional
 	public void guardar(User usuario) {
 
 		try {
@@ -28,7 +32,8 @@ public class ServicioUser {
 			logger.warn("Falló al guardar el usuario", exc);
 		}
 	}
-
+	
+	@Transactional
 	public void eliminar(Long idUsuario) {
 		try {
 			repositorioUser.deleteById(idUsuario);

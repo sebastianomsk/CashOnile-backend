@@ -34,11 +34,12 @@ public class ControllerLoan {
 	@SuppressWarnings("serial")
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> obtenerLoans(
-			@RequestParam(name = "page", defaultValue = "0") final int page, 
+			@RequestParam(name = "page", defaultValue = "1") final int page, 
 			@RequestParam(name = "size", defaultValue = "5") final int size,
 			@RequestParam (name = "user_id", required = false) final Long user_id
 			) throws NotFoundException {
 		if(page-1<0 || size<1) {
+			logger.info("GET /loans?page="+page+"&size="+size+"&user_id="+user_id+"  "+ "BAD_REQUEST");	
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		Pageable requestPageable = PageRequest.of(page-1, size);
@@ -51,7 +52,7 @@ public class ControllerLoan {
 				put("paging", new LinkedHashMap<String, Object>() {
 					{
 						put("page", paginacion.getTotalPages());
-						put("size", 5);
+						put("size", size);
 						put("total", paginacion.getTotalElements());
 					}
 				});

@@ -25,18 +25,18 @@ public class Loan {
 	@JoinColumn(name = "userId")
 	private User user;
 
+	
 	public Loan() {
 	}
 
+	
 	public Long getId() {
 		return id;
 	}
 	
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
 
 	@JsonProperty("userId")
 	public Long userId() {

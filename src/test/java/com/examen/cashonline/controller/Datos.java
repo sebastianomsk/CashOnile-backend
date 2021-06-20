@@ -1,22 +1,16 @@
-package com.examen.cashonline;
+package com.examen.cashonline.controller;
 
 import java.math.BigDecimal;
 
-import org.springframework.beans.factory.InitializingBean;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.examen.cashonline.entidades.Loan;
 import com.examen.cashonline.entidades.User;
-import com.examen.cashonline.repositorios.RepositorioLoan;
-import com.examen.cashonline.repositorios.RepositorioUser;
 import com.examen.cashonline.servicios.ServicioLoan;
 import com.examen.cashonline.servicios.ServicioUser;
 
-@Service
-@SuppressWarnings("all")
-public class Bootstrap implements InitializingBean {
-
+public class Datos {
 	@Autowired
 	private ServicioUser servicioUser;
 	
@@ -32,7 +26,13 @@ public class Bootstrap implements InitializingBean {
 	Loan prestamo3 = new Loan();
 	Loan prestamo4 = new Loan();
 	Loan prestamo5 = new Loan();
-
+	
+	@BeforeEach
+	void init() {
+		crearUsuarios();
+		crearLoan();
+	}
+	
 	private void crearUsuarios() {
 		pedro.setFirstName("Pedro");
 		pedro.setLastName("Lopez");
@@ -50,7 +50,7 @@ public class Bootstrap implements InitializingBean {
 		servicioUser.guardar(juan);
 		servicioUser.guardar(leo);
 	}
-
+	
 	private void crearLoan() {
 		prestamo1.setTotal(new BigDecimal(10000));
 		prestamo2.setTotal(new BigDecimal(15000));
@@ -69,17 +69,5 @@ public class Bootstrap implements InitializingBean {
 		servicioLoan.guardarLoan(prestamo3);
 		servicioLoan.guardarLoan(prestamo4);
 		servicioLoan.guardarLoan(prestamo5);
-	}
-
-	public void init_app() {
-		crearUsuarios();
-		crearLoan();
-	}
-
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		System.out.println("Inicializando la carga de datos");
-		this.init_app();
-		System.out.println("Finalizada la carga de datos");
 	}
 }
